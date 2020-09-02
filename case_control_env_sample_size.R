@@ -9,7 +9,7 @@ fluidRow(
            
            ##change the title here
            div(style="display: inline-block; vertical-align:top; text-align:center; width: 100%;",
-               strong(h3("Genetic Effect"))),
+               strong(h3("Environment Effect"))),
            
            br(),
            
