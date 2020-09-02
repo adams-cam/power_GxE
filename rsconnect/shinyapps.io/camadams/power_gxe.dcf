@@ -1,0 +1,13 @@
+name: power_gxe
+title:
+username:
+account: camadams
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2660738
+bundleId: 3526339
+url: https://camadams.shinyapps.io/power_gxe/
+when: 1597686829.4651
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Untitled.R

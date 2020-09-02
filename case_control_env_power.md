@@ -1,0 +1,36 @@
+---
+title: ""
+author: ""
+date: ""
+output: html_document
+---
+
+
+<br>
+<br>
+
+
+This function will return the power for specified sample size and other model parameters for estimating association between an enviromental exposure and a binary outcome from a case-control model:
+
+\[ log\bigg(\frac{p}{1-p}\bigg)  = \beta_0 + \beta_1 E \]
+
+Where $\beta_1$ is the log(OR) for the association between the environmental exposure and case-control status.
+
+<br>
+<br>
+
+### Input Parameters:
+
+- N case: Number of cases
+- Controls:Case: Number of controls for each case
+- $P_e$: Prevalance of environmental exposure in the population
+- $OR_e$: Odds-Ratio for environmental exposure and outcome in the population
+- Alpha: Type I error rate
+- \# Tests: Number of tests to be performed (i.e. number of variants in GWAS analysis). Will use Bonferonni correction to adjust power or sample size for specified number of tests.
+
+Notes:
+
+_Value ranges_
+
+You can specify either a single value for $P_e$ and $OR_e$, or a range of values, using **From:** and **To:** input boxes.
+
