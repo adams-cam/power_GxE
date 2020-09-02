@@ -59,7 +59,6 @@ server <- function(input, output, session) {
     # ranges for zooming
     ranges <- reactiveValues(x = NULL, y = NULL)
     
-    
     ############################################################################
     # Power
     ############################################################################    
@@ -251,10 +250,10 @@ server <- function(input, output, session) {
     
     # print table output
     output$tbl_cc_env_power <- function() {
-        #df <- ccp_e_beta
-        df <- tbl_cc_env_power()
-        kable(df, "html", booktabs = T, align = c("r"), digits = 3,
-              caption = "Power") %>%
+        
+        tbl_cc_env_power() %>% 
+            kable(., "html", booktabs = T, align = c("r"), digits = 3,
+                  caption = "Power") %>%
             kable_styling("striped", full_width = F,
                           position = "left", font_size = 12) %>%
             footnote(general_title = "", 
@@ -271,14 +270,12 @@ server <- function(input, output, session) {
     # plot output
     output$cc_env_power_plot <- renderPlot({
         
-        #df <- ccp_g_beta
-        df <- tbl_cc_env_power() %>% data.frame() %>% mutate(ORe = rownames(.)) %>% 
+       tbl_cc_env_power() %>% data.frame() %>% mutate(ORe = rownames(.)) %>% 
             reshape2::melt() %>% rename(Power = value, Pe = variable) %>% 
-            mutate(ORe = as.numeric(ORe), Pe = sub("X", "", Pe)) 
-        
-        # plot
-        df %>% ggplot(aes(x = ORe, y = Power, color = Pe)) + 
-            #geom_smooth(se = FALSE) + 
+            mutate(ORe = as.numeric(ORe), Pe = sub("X", "", Pe)) %>% 
+            
+            # plot
+            ggplot(aes(x = ORe, y = Power, color = Pe)) + 
             geom_line() + 
             geom_hline(yintercept = 0.8, lty = 2) + 
             labs(y = paste0("Power")) +
@@ -311,6 +308,19 @@ server <- function(input, output, session) {
     
     # get power
     tbl_cc_gxe_power <- eventReactive(input$ccp_ge_do, {
+        
+        #input <- list(ccp_ge_n_case = "1000", 
+        #              ccp_ge_k = 1, #ccp_ge__prev = "0.05", 
+        #              ccp_ge_inherit = "Dominant",
+        #              ccp_ge_pg = "0.5", ccp_ge_pe = "0.5",
+        #              #ccp_ge__pg_ll = " ", ccp_ge__pg_ul = " ",
+        #              ccp_ge_pg_ll = "0.25", ccp_ge_pg_ul = "0.5",
+        #              ccp_ge_org = "1.5", ccp_ge_ore = "1.5",
+        #              ccp_ge_orgxe = "1.1", 
+        #              #ccp_ge__org_ll = " ", ccp_ge__org_ul = " ",
+        #              ccp_ge_orgxe_ll = "1.1", ccp_ge_orgxe_ul = "1.5",
+        #              ccp_ge_alpha = "0.05", ccp_ge_beta = "0.8")
+        
         
         # get coef
         b1 <- log(as.numeric(input$ccp_ge_org)) # ORg
@@ -382,27 +392,15 @@ server <- function(input, output, session) {
     # plot output
     output$cc_gxe_power_plot <- renderPlot({
         
-        #input <- list(ccn_g_k = 1, ccn_g_prev = "0.05", 
-        #              ccn_g_inherit = "Dominant",
-        #              ccn_g_pg = "0.5", 
-        #              #ccn_g_pg_ll = " ", ccn_g_pg_ul = " ",
-        #              ccn_g_pg_ll = "0.25", ccn_g_pg_ul = "0.5",
-        #              or_g = "1.1", 
-        #              #ccn_g_org_ll = " ", ccn_g_org_ul = " ",
-        #              ccn_g_org_ll = "1.1", ccn_g_org_ul = "1.5",
-        #              ccn_g_alpha = "0.05", ccn_g_beta = "0.8")
-        
-        # get sample size calcs
-        #df <- ccp_g_beta
-        #df <- tbl_cc_gene_power() %>% data.frame()
-        df <- tbl_cc_gene_power() %>% data.frame() %>% mutate(ORg = rownames(.)) %>% 
+        #df <- ccp_ge_beta
+        tbl_cc_gxe_power() %>% data.frame() %>% mutate(ORg = rownames(.)) %>% 
             reshape2::melt() %>% rename(Power = value, Pg = variable) %>% 
-            mutate(ORg = as.numeric(ORg), Pg = sub("X", "", Pg)) 
-        
-        # plot
-        df %>% ggplot(aes(x = ORg, y = Power, color = Pg)) + 
-            #geom_smooth(se = FALSE) + 
+            mutate(ORg = as.numeric(ORg), Pg = sub("X", "", Pg)) %>% 
+            
+            # plot
+            ggplot(aes(x = ORg, y = Power, color = Pg)) + 
             geom_line() + 
+            geom_hline(yintercept = 0.8, lty = 2) +
             labs(y = "Power", x = "ORgxe") +
             coord_cartesian(xlim = ranges$x, ylim = ranges$y, expand = FALSE) +
             theme_minimal()
@@ -414,7 +412,6 @@ server <- function(input, output, session) {
         if (!is.null(brush)) {
             ranges$x <- c(brush$xmin, brush$xmax)
             ranges$y <- c(brush$ymin, brush$ymax)
-            
         } else {
             ranges$x <- NULL
             ranges$y <- NULL
@@ -427,6 +424,8 @@ server <- function(input, output, session) {
                round(as.numeric(input$gxe_power_plot_click$x), 2), "\nPower=", 
                round(as.numeric(input$gxe_power_plot_click$y), 2))
     })
+    
+    
     
     
     

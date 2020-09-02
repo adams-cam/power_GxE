@@ -71,7 +71,8 @@ fluidRow(
                                        id = "gxe_power_plot1_brush",
                                        resetOnNew = TRUE
                                    )),
-                        verbatimTextOutput("gxe_power_info")),
+                        verbatimTextOutput("gxe_power_info")
+               ),
                 tabPanel("Help:", 
                     withMathJax(), 
                     HTML(markdown::markdownToHTML(knit("case_control_gxe_power.Rmd", 

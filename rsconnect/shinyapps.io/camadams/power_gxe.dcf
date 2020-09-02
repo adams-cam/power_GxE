@@ -5,9 +5,9 @@ account: camadams
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2660738
-bundleId: 3585486
+bundleId: 3585690
 url: https://camadams.shinyapps.io/power_gxe/
-when: 1599076520.38354
+when: 1599080048.90085
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: README.md|rs_connect.R|Untitled.R|archive
+ignoredFiles: README.md|rs_connect.R|archive
