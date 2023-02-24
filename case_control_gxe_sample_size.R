@@ -50,7 +50,7 @@ fluidRow(
             #hr(),
             splitLayout(cellWidths = c("33%", "33%", "33%"), 
                        textInput("ccn_ge_alpha", "Alpha", value = "0.05", width = 60),
-                       textInput("ccn_ge_beta", "Beta", value = "0.80", width = 60), 
+                       textInput("ccn_ge_beta", "1-Beta", value = "0.80", width = 60), 
                        textInput("ccn_ge_num_tests", "# Tests", value = "1", width = 100)), 
 
            #br(),
