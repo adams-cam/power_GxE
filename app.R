@@ -563,16 +563,16 @@ server <- function(input, output, session) {
     # get sample size
     tbl_cc_env <- eventReactive(input$ccn_e_do, {
 
-        input <- list(ccn_e_k = 1, 
-                     ccn_e_prev = "0.23",
-                     ccn_e_pe = "0.23",
-                     #ccn_e_pe_ll = " ", ccn_e_pe_ul = " ",
-                     #ccn_e_pe_ll = "0.25", ccn_e_pe_ul = "0.5",
-                     #ccn_e_ore = "1.1",
-                     #ccn_e_ore_ll = " ", ccn_e_ore_ul = " ",
-                     ccn_e_ore_ll = "2", ccn_e_ore_ul = "3",
-                     ccn_e_alpha = "0.05", ccn_e_beta = "0.8",
-                     ccn_e_num_tests = "1")
+        # input <- list(ccn_e_k = 1,
+        #              ccn_e_prev = "0.23",
+        #              ccn_e_pe = "0.23",
+        #              #ccn_e_pe_ll = " ", ccn_e_pe_ul = " ",
+        #              #ccn_e_pe_ll = "0.25", ccn_e_pe_ul = "0.5",
+        #              #ccn_e_ore = "1.1",
+        #              #ccn_e_ore_ll = " ", ccn_e_ore_ul = " ",
+        #              ccn_e_ore_ll = "2", ccn_e_ore_ul = "3",
+        #              ccn_e_alpha = "0.05", ccn_e_beta = "0.8",
+        #              ccn_e_num_tests = "1")
 
         
         # get coef
