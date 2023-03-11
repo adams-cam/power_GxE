@@ -197,16 +197,16 @@ server <- function(input, output, session) {
     # get power
     tbl_cc_env_power <- eventReactive(input$ccp_e_do, {
         
-        #input <- list(ccp_e_n_case = "1000", ccp_e_k = "1",
-        #              ccp_e_pg = "0.5", 
+        # input <- list(ccp_e_n_case = "1000", ccp_e_k = "1",
+        #              ccp_e_pg = "0.",
         #              #ccp_e_pg_ll = " ", ccp_e_pg_ul = " ",
         #              ccp_e_pg_ll = "0.1", ccp_e_pg_ul = "0.5",
-        #              ccp_e_org = "1.1", 
+        #              ccp_e_org = "1.1",
         #              #ccp_e_org_ll = " ", ccp_e_org_ul = " ",
         #              ccp_e_org_ll = "1.1", ccp_e_org_ul = "1.5",
         #              ccp_e_alpha = "0.05", ccp_e_beta = "0.8",
         #             ccp_e_num_tests = "1")
-        
+
         
         
         # set b1
@@ -478,7 +478,7 @@ server <- function(input, output, session) {
                                beta = as.numeric(input$ccn_g_beta), 
                                var = x, b = b1) 
         }))
-        if (ncol(ccn_g_n) == 1) {ccn_g_n <- data.frame(t(ccn_g_n))}
+        # if (ncol(ccn_g_n) == 1) {ccn_g_n <- data.frame(t(ccn_g_n))}
         colnames(ccn_g_n) <- as.character(p)
         rownames(ccn_g_n) <- as.character(round(exp(b1), 2))
         ccn_g_n <- ceiling(ccn_g_n * (1 / (1 + as.numeric(input$ccn_g_k))))
@@ -562,17 +562,18 @@ server <- function(input, output, session) {
     
     # get sample size
     tbl_cc_env <- eventReactive(input$ccn_e_do, {
-        
-        #input <- list(ccn_e_k = 1, ccn_e_prev = "0.05", 
-        #              ccn_e_pg = "0.5", 
-        #              #ccn_e_pe_ll = " ", ccn_e_pe_ul = " ",
-        #              ccn_e_pe_ll = "0.25", ccn_e_pe_ul = "0.5",
-        #              ccn_e_ore = "1.1", 
-        #              #ccn_e_ore_ll = " ", ccn_e_ore_ul = " ",
-        #              ccn_e_ore_ll = "1.1", ccn_e_ore_ul = "1.5",
-        #              ccn_e_alpha = "0.05", ccn_e_beta = "0.8", 
-        #              ccn_e_num_tests = "1")
-        
+
+        input <- list(ccn_e_k = 1, 
+                     ccn_e_prev = "0.23",
+                     ccn_e_pe = "0.23",
+                     #ccn_e_pe_ll = " ", ccn_e_pe_ul = " ",
+                     #ccn_e_pe_ll = "0.25", ccn_e_pe_ul = "0.5",
+                     #ccn_e_ore = "1.1",
+                     #ccn_e_ore_ll = " ", ccn_e_ore_ul = " ",
+                     ccn_e_ore_ll = "2", ccn_e_ore_ul = "3",
+                     ccn_e_alpha = "0.05", ccn_e_beta = "0.8",
+                     ccn_e_num_tests = "1")
+
         
         # get coef
         if (isTruthy(input$ccn_e_ore_ll) & isTruthy(input$ccn_e_ore_ul)) {
@@ -601,8 +602,8 @@ server <- function(input, output, session) {
                                    as.numeric(input$ccn_e_num_tests), 
                                beta = as.numeric(input$ccn_e_beta), 
                                var = x, b = b1) 
-        }))
-        if (ncol(ccn_e_n) == 1) {ccn_e_n <- data.frame(t(ccn_e_n))}
+        }), row.names=NULL)
+        #if (ncol(ccn_e_n) == 1) {ccn_e_n <- data.frame(t(ccn_e_n))}
         colnames(ccn_e_n) <- as.character(p)
         rownames(ccn_e_n) <- as.character(round(exp(b1), 2))
         ccn_e_n <- ceiling(ccn_e_n * (1 / (1 + as.numeric(input$ccn_e_k))))
